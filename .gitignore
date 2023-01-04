@@ -1,5 +1,10 @@
 __pycache__/
-venv/
+.coverage
 .DS_Store
 .vscode/
-.coverage
+*egg-info/
+*egg-info/
+build/
+dist/
+env/
+venv/

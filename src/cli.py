@@ -32,6 +32,10 @@ def main(input_string: str) -> None:
         print(dumps(tax_applicable))
 
 
-if __name__ == "__main__":
+def entrypoint():
     input_string = sys.stdin.read()
     main(input_string)
+
+
+if __name__ == "__main__":
+    entrypoint()

@@ -1,4 +1,12 @@
-.DEFAULT_GOAL := test
+.DEFAULT_GOAL := build
+
+build:
+	python3 setup.py build
+.PHONY:build
+
+install:
+	python3 setup.py install
+.PHONY:install
 
 test:
 	black .
