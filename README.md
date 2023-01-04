@@ -37,7 +37,7 @@ Após a execução dos comandos acima, o comando `capital-gains` ficará acessí
 
 Existe um arquivo `setup.sh` na raiz do projeto que constrói uma imagem Docker e adiciona um alias no shell atual para que seja possível utilizar a CLI de dentro de um container baseado nesta imagem.
 
-Para utilizar esta opção, procesa da seguinte forma:
+Para utilizar esta opção, proceda da seguinte forma:
 
 ```
 $ source ./setup.sh
@@ -69,7 +69,7 @@ Instale as bibliotecas utilizadas para desenvolvimento:
 (env) $ pip install -r requirements-dev.txt
 ```
 
-Execute os testes unitário e instale da seguinte forma:
+Execute os testes unitários e instale da seguinte forma:
 
 ```
 (env) $ make test
@@ -89,11 +89,11 @@ Alternativamente:
 
 A aplicação utiliza o arquivo `src/cli.py` como ponto de entrada. Após capturar e interpretar a `stdin`, a classe `TaxCalculator` é utilizada para calcular os impostos que são impressos na `stdout` sequencialmente para cada linha contendo uma simulação independente.
 
-Como buscava-se uma solução simples, a aplicação não recebe outros parâmetros.
+Como buscava-se uma solução simples, a aplicação não recebe outros parâmetros e tudo é executado sequencialmente.
 
 A classe `TaxCalculator` possui apenas um método estático no momento (`calculate`) que cria uma objeto da classe `Simulation` para manter o estado de uma simulação. As operações são aplicadas sequencialmente ao estado (`Simulation`) utilizando seus métodos `buy` ou `sell`, sempre capturando a taxa correspondente a cada operação.
 
-Uma opção funcional da forma `impostos = F(operacoes)` é totalmente factível, pois o resultado esperado é completamente determinado pela entrada. Entretanto, o número de regras sobre como aplicar o imposto e o carregamento de estados resulta em um código um pouco complexo.
+Uma solução funcional da forma `impostos = F(operacoes)` é totalmente factível, pois o resultado esperado é completamente determinado pela entrada. Entretanto, o grande número de regras sobre como aplicar o imposto e o carregamento de estados resulta em um código um pouco complexo.
 
 Por esta razão acima, optou-se pela classe `Simulation` por permitir uma interface simples e um código um pouco mais limpo e fácil de entender:
 - A classe é instanciada `simulation = Simulation()`, opcionalmente com valores iniciais de `total_stocks`, `weighted_average` e `loss`.
@@ -105,7 +105,7 @@ Por esta razão acima, optou-se pela classe `Simulation` por permitir uma interf
 
 Observações:
 
-- Para desenvolvimento foram utilizadas as seguintes bibliotecas:
+- Para desenvolvimento foram utilizadas as seguintes bibliotecas (e suas dependências):
     - `black` para formatar o código.
     - `pytest` é um framework de testes que proporciona algumas facilidades e maior simplicidade quando comparado ao `unittest` dispível na biblioteca padrão o Python.
     - `coverage` para facilitar a visualização da cobertura de testes de forma sistemática.
