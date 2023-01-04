@@ -12,9 +12,9 @@ from src.tax import Tax
 class Simulation:
     """Keeps a simulation state allowing buy and sell operations."""
 
-    total_stocks: int
-    weighted_average: float
-    loss: float
+    total_stocks: int = 0
+    weighted_average: float = 0.0
+    loss: float = 0.0
 
     def buy(self, operation: Operation) -> Tax:
         """Apply a buy operation and return corresponding tax (always zero)."""

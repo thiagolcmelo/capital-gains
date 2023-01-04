@@ -9,7 +9,7 @@ class TaxCalculator:
     @staticmethod
     def calculate(operations: List[Operation]) -> List[Tax]:
         """Calculate taxes for each operation in a list."""
-        simulation = Simulation(0, 0.0, 0.0)
+        simulation = Simulation()
         result = []
         # operations must be computed sequentially
         for operation in operations:
