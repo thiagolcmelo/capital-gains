@@ -3,6 +3,8 @@ from dataclasses import dataclass
 
 @dataclass
 class Operation:
+    """Represents a unitary operation (buy or sell)."""
+
     operation: str
     unit_cost: float
     quantity: int

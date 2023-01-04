@@ -10,7 +10,7 @@ from src.tax import Tax
 
 @dataclass
 class Simulation:
-    """Keeps a simulation state allowing buy and sell operations."""
+    """Keeps a simulation state, allowing buy and sell operations."""
 
     total_stocks: int = 0
     weighted_average: float = 0.0
@@ -65,6 +65,7 @@ class Simulation:
         new_stocks: int,
         buy_price: float,
     ) -> float:
+        """Calculates the weighted average price."""
         current_amount = current_stocks * current_weighted_average
         new_amount = new_stocks * buy_price
         new_weighted_average = (current_amount + new_amount) / (
@@ -74,4 +75,5 @@ class Simulation:
 
     @staticmethod
     def make_tax(tax: float) -> Tax:
+        """Creates a Tax object from a float and rounds to 2 decimal digits."""
         return Tax(round(tax, 2))
