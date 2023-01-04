@@ -111,6 +111,7 @@ Observações:
     - `coverage` para facilitar a visualização da cobertura de testes de forma sistemática.
 - Seria interessante paralelizar o processamento das linhas. Uma ideia seria utilizar `ArgumentParser` para receber o número de processos paralelos desejado, algo como: `$ capital-gains -n 10 < arquivo.txt` para executar 10 linhas em paralelo por vez.
   - Mesmo paralelizando simulações, uma única lista de operações muito longa irá resultar em um longo tempo de processamento. Algumas otimizações são possíveis como agrupar operações de compra, mas um caso com operações do tipo `buy, sell, buy, sell, buy, ...` ainda será problemático.
+  - O código possui uma forte dependência na ordem das operações. Apesar de a entrada ser garantidamente correta, seria interessante adicionar algum termo de ordenamento as classes `Operation` e `Tax`.
 - Os testes estão mais complexos do que o necessário e um pouco redundantes. O objetivo é cobrir a aplicação com testes da forma mais abrangente possível.
 - O arquivo `setup.sh` apenas sugere como facilitar o uso da CLI diretamente a partir de dentro de um container, mas ele precisa ser aperfeiçoado para uso. Talvez a forma mais direta seria adicionar o alias diretamente ao arquivo `.bashrc` (ou análogo) do usuário.
 - A classe `Simulation` não armazena as taxas todas, mas poderia case fosse necessário.
