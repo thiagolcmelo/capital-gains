@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from glob import glob
 from json import loads
 from os import path
-from typing import Any, List
+from typing import List
 
 from src.operation import Operation
 from src.tax import Tax

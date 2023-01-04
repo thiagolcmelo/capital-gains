@@ -1,11 +1,8 @@
 from subprocess import PIPE, Popen
 
 from src.cli import main, parse_input
-from src.operation import Operation
-from src.tax import Tax
 from tests.utils import (
     assert_tax_output_equal,
-    captured_output,
     data_cases_input_filenames,
     data_cases_output_filenames,
     data_cases_parsed,

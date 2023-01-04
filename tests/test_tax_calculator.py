@@ -1,7 +1,3 @@
-import pytest
-
-from typing import List
-
 from src.tax_calculator import TaxCalculator
 from src.operation import Operation
 from src.tax import Tax

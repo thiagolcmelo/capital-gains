@@ -1,6 +1,4 @@
 from src.cli import main, parse_input
-from src.operation import Operation
-from src.tax import Tax
 from tests.utils import (
     assert_operation_list_equal,
     assert_tax_output_equal,
