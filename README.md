@@ -1,11 +1,10 @@
-# Capital Gains
+# Ganho de Capital
 
-CLI tool for calculating tax over stock market operations.
+CLI para calcular o imposto a ser pago sobre lucros ou prejuízos de operações no mercado financeiro de ações.
 
+## Mode de operação
 
-## Usage
-
-These are a few examples:
+Se instalada, a aplicação pode ser usada na linha de comando como demonstrado a seguir:
 
 ```
 $ capital-gains < tests/data/case_01/input.txt
@@ -22,41 +21,62 @@ capital-gains < tests/data/case_03/input.txt
 [{"tax": 0.0}, {"tax": 0.0}, {"tax": 1000.0}]
 ```
 
+## Instalando a aplicação
 
+Para somente instalar a aplicação, por favor, proceda da seguinte forma:
 
-## Building and Installing
+```
+$ make test
+$ make build
+$ make install
+```
 
-For development, please create a virtual environment and activate it:
+Após a execução dos comandos acima, o comando `capital-gains` ficará acessível na linha de comando.
+
+## Utilizando a aplicação com Docker
+
+Existe um arquivo `setup.sh` na raiz do projeto que constrói uma imagem Docker e adiciona um alias no shell atual para que seja possível utilizar a CLI de dentro de um container baseado nesta imagem.
+
+Para utilizar esta opção, procesa da seguinte forma:
+
+```
+$ ./setup.sh
+```
+
+Agora deve ser possível utilizar a CLI da seguinte forma:
+
+```
+
+```
+
+## Extendendo a aplicação
+
+Para extender a aplicação, por favor, crie um virtual environment e o ative:
 
 ```
 $ python3 -m venv env
 $ source env/bin/activate
 ```
 
-Install the required external libraries:
+Instale as bibliotecas utilizadas para desenvolvimento:
 
 ```
 (env) $ pip install --upgrade pip
 (env) $ pip install -r requirements-dev.txt
 ```
 
-Please run the tests, build, and install as follows:
+Execute os testes unitário e instale da seguinte forma:
+
+```
+(env) $ make test
+(env) $ make build
+(env) $ make install
+```
+
+Alternativamente:
 
 ```
 (env) $ pytest
 (env) $ python setup.py build
 (env) $ python setup.py install
-```
-
-Alternatively, using make, the tests can be triggered by:
-
-```
-(env) $ make test
-```
-
-The new distribution can be built and installed by:
-
-```
-(env) $ make build
-(env) $ make install
 ```
