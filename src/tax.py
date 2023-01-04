@@ -4,7 +4,7 @@ from json import dumps
 
 @dataclass
 class Tax:
-    """Represents a unitary tax."""
+    """Represents an unitary tax."""
 
     tax: float
 

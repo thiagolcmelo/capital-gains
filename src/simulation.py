@@ -19,7 +19,7 @@ class Simulation:
     def buy(self, operation: Operation) -> Tax:
         """Apply a buy operation and return corresponding tax (always zero)."""
 
-        # buying operations required weighted_average to be updated
+        # buying operations requires weighted_average to be updated
         # before changing the total_stocks
         self.weighted_average = Simulation.calculate_weighted_average(
             self.total_stocks,
