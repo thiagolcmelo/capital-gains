@@ -3,6 +3,7 @@ import pytest
 from src.operation import Operation
 from src.simulation import Simulation
 from src.tax import Tax
+from src.tax_error import TaxError
 
 
 @pytest.mark.parametrize(
@@ -71,3 +72,13 @@ def test_sell_taxable():
     sell_operation = Operation("sell", 20.0, 5000)
     tax = simulation.sell(sell_operation)
     assert tax == Tax(10000.0)
+
+
+def test_sell_invalid_quantity():
+    simulation = Simulation(0, 0.0, 0.0)
+    buy_operation = Operation("buy", 10.0, 10000)
+    _ = simulation.buy(buy_operation)
+    sell_operation = Operation("sell", 20.0, 11000)
+    result = simulation.sell(sell_operation)
+    assert type(result) is TaxError
+    assert result.error == "Can't sell more stocks than you have"

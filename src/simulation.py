@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional, Union
 
 from src.constants import (
     MIN_TAXED_OPERATION_VALUE,
@@ -6,6 +7,7 @@ from src.constants import (
 )
 from src.operation import Operation
 from src.tax import Tax
+from src.tax_error import TaxError
 
 
 @dataclass
@@ -30,8 +32,12 @@ class Simulation:
         self.total_stocks += operation.quantity
         return Tax(0.0)
 
-    def sell(self, operation: Operation) -> Tax:
+    def sell(self, operation: Operation) -> Union[Tax, TaxError]:
         """Apply a sell operation and return corresponding tax."""
+
+        validation = self.validate(operation)
+        if validation is not None:
+            return validation
 
         tax = 0.0
         self.total_stocks -= operation.quantity
@@ -57,6 +63,10 @@ class Simulation:
             )
 
         return Simulation.make_tax(tax)
+
+    def validate(self, operation: Operation) -> Optional[TaxError]:
+        if operation.quantity > self.total_stocks:
+            return TaxError("Can't sell more stocks than you have")
 
     @staticmethod
     def calculate_weighted_average(

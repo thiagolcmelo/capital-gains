@@ -6,10 +6,11 @@ from contextlib import contextmanager
 from glob import glob
 from json import loads
 from os import path
-from typing import List
+from typing import List, Union
 
 from src.operation import Operation
 from src.tax import Tax
+from src.tax_error import TaxError
 
 
 def assert_operation_list_equal(
@@ -20,10 +21,17 @@ def assert_operation_list_equal(
         assert a == e, label
 
 
-def assert_tax_list_equal(actual: List[Tax], expected: List[Tax], label: str) -> None:
+def assert_tax_list_equal(
+    actual: List[Union[Tax, TaxError]], expected: List[Union[Tax, TaxError]], label: str
+) -> None:
     assert len(actual) == len(expected), label
     for a, e in zip(actual, expected):
-        assert a.tax == pytest.approx(e.tax), label
+        if type(a) is Tax:
+            assert a.tax == pytest.approx(e.tax), label
+        elif type(a) is TaxError:
+            assert a.error == pytest.approx(e.error), label
+        else:
+            assert False, label
 
 
 def assert_tax_output_equal(actual: str, expected: str, label: str) -> None:
@@ -31,8 +39,12 @@ def assert_tax_output_equal(actual: str, expected: str, label: str) -> None:
     expected = [l.strip() for l in expected.split("\n") if l != ""]
     assert len(actual) == len(expected), label
     for a, e in zip(actual, expected):
-        a = [Tax(tx["tax"]) for tx in loads(a)]
-        e = [Tax(tx["tax"]) for tx in loads(e)]
+        a = [
+            Tax(tx["tax"]) if "tax" in tx else TaxError(tx["error"]) for tx in loads(a)
+        ]
+        e = [
+            Tax(tx["tax"]) if "tax" in tx else TaxError(tx["error"]) for tx in loads(e)
+        ]
         assert_tax_list_equal(a, e, label)
 
 
@@ -161,6 +173,30 @@ def simulations():
                 {"tax": 80000.00},
                 {"tax": 0.00},
                 {"tax": 60000.00},
+            ],
+        },
+        {
+            "label": "case_09_invalid_quantity",
+            "input": [
+                {"operation": "buy", "unit-cost": 10, "quantity": 10000},
+                {"operation": "sell", "unit-cost": 20, "quantity": 11000},
+            ],
+            "output": [
+                {"tax": 0.00},
+                {"error": "Can't sell more stocks than you have"},
+            ],
+        },
+        {
+            "label": "case_10_invalid_quantity",
+            "input": [
+                {"operation": "buy", "unit-cost": 10, "quantity": 10000},
+                {"operation": "sell", "unit-cost": 20, "quantity": 11000},
+                {"operation": "sell", "unit-cost": 20, "quantity": 5000},
+            ],
+            "output": [
+                {"tax": 0.00},
+                {"error": "Can't sell more stocks than you have"},
+                {"tax": 10000.00},
             ],
         },
     ]
